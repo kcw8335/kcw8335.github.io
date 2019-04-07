@@ -1,0 +1,30 @@
+.title{
+    text-align: center;
+    margin: 30px;
+    background-color: black;
+}
+.subtitle1{
+    text-align: center;
+    margin: 0px;
+}
+.subtitle2{
+    text-align: center;
+    margin: 0px;
+}
+.p1{
+    text-align: center;
+}
+h1 {
+    text-align : center;
+    margin: 50px;
+}
+h2{
+    text-align: center;
+    margin: 50px;
+}
+h3{
+    text-align: center;
+}
+p{
+    text-align : center;
+}
