@@ -8,6 +8,7 @@
 .
 ├── _config.yml
 ├── _layouts/
+├── _sass/
 ├── assets/
 ├── papers/
 ├── templates/
@@ -15,6 +16,14 @@
 ├── methodology.md
 └── reading-list.md
 ```
+
+## 디자인 테마
+
+현재 디자인은 공개 Jekyll 테마인 Minimal Light를 다운로드해 적용했습니다.
+
+- Theme: https://github.com/yaoyao-liu/minimal-light
+- License: CC0 1.0 Universal
+- Notice: `THIRD_PARTY_NOTICES.md`
 
 ## 새 논문 추가
 
