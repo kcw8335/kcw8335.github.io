@@ -1,17 +1,17 @@
 :root {
-  color-scheme: light;
-  --bg: #f6f3ee;
-  --paper: #fbfaf7;
-  --card: #ffffff;
-  --text: #1f1b17;
-  --muted: #746d64;
-  --line: #ded8cf;
-  --ink: #26211c;
-  --accent: #8a5a36;
-  --accent-soft: #efe4d5;
-  --sage: #566d5e;
-  --clay: #c76f45;
-  --shadow: 0 22px 60px rgba(47, 39, 31, 0.09);
+  color-scheme: dark;
+  --bg: #050505;
+  --paper: #111111;
+  --card: #151515;
+  --text: #ffffff;
+  --muted: #b8b8b8;
+  --line: #303030;
+  --ink: #ffffff;
+  --accent: #f5c57a;
+  --accent-soft: #292018;
+  --sage: #95d8b2;
+  --clay: #f39a6a;
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.42);
 }
 
 * {
@@ -52,7 +52,7 @@ input {
   justify-content: space-between;
   gap: 24px;
   padding: 18px clamp(18px, 4vw, 56px);
-  border-bottom: 1px solid rgba(31, 27, 23, 0.12);
+  border-bottom: 1px solid var(--line);
 }
 
 .brand {
@@ -67,7 +67,7 @@ input {
   height: 34px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 12px;
 }
@@ -89,7 +89,7 @@ input {
 
 .site-nav a:hover {
   background: var(--accent-soft);
-  color: var(--text);
+  color: var(--accent);
 }
 
 main {
@@ -100,7 +100,7 @@ main {
   display: grid;
   gap: 16px;
   padding: clamp(48px, 8vw, 112px) 0 clamp(34px, 5vw, 64px);
-  border-bottom: 1px solid rgba(31, 27, 23, 0.12);
+  border-bottom: 1px solid var(--line);
 }
 
 .eyebrow {
@@ -149,19 +149,19 @@ main {
 }
 
 .primary-link {
-  background: var(--ink);
-  color: #fff;
+  background: var(--text);
+  color: #050505;
 }
 
 .primary-link:hover {
-  color: #fff;
+  color: #050505;
   background: var(--accent);
 }
 
 .secondary-link,
 .card-links a {
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.54);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .blog-controls {
@@ -190,9 +190,9 @@ main {
 
 .tab-pill:hover,
 .tab-pill.is-active {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: #fff;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #050505;
 }
 
 .search-control {
@@ -202,7 +202,7 @@ main {
   gap: 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.06);
   padding: 8px 14px;
 }
 
@@ -223,6 +223,10 @@ main {
   color: var(--text);
 }
 
+.search-control input::placeholder {
+  color: #8f8f8f;
+}
+
 .stats-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -235,7 +239,7 @@ main {
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .stats-row strong {
@@ -282,8 +286,8 @@ main {
   padding: 20px;
   color: #fff;
   background:
-    radial-gradient(circle at 78% 20%, rgba(255, 255, 255, 0.28), transparent 28%),
-    linear-gradient(135deg, #2b231c 0%, #825637 52%, #d59b63 100%);
+    radial-gradient(circle at 78% 20%, rgba(245, 197, 122, 0.28), transparent 28%),
+    linear-gradient(135deg, #0b0b0b 0%, #352515 52%, #8b5b2f 100%);
 }
 
 .card-visual strong {
@@ -329,7 +333,7 @@ main {
 .card-meta span::before {
   content: "/";
   margin-right: 8px;
-  color: #b8afa5;
+  color: #666;
 }
 
 .paper-card h2 {
@@ -347,7 +351,7 @@ main {
 }
 
 .card-excerpt {
-  color: #514941;
+  color: #e0e0e0;
 }
 
 .tag-row {
@@ -360,10 +364,10 @@ main {
   display: inline-flex;
   min-height: 26px;
   align-items: center;
-  border: 1px solid #ded2c4;
+  border: 1px solid #3a332c;
   border-radius: 999px;
   background: var(--paper);
-  color: #6f533b;
+  color: var(--accent);
   padding: 4px 8px;
   font-size: 12px;
   font-weight: 700;
@@ -431,7 +435,7 @@ main {
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 7px 12px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.05);
   font-weight: 700;
   font-size: 14px;
 }
@@ -439,12 +443,12 @@ main {
 .takeaway {
   margin: 24px 0;
   border-left: 4px solid var(--accent);
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.05);
   padding: 16px 18px;
 }
 
 .content {
-  color: #372f28;
+  color: #f3f3f3;
 }
 
 main > h1,
@@ -472,7 +476,7 @@ main > p,
 main li,
 .content p,
 .content li {
-  color: #514941;
+  color: #e0e0e0;
 }
 
 .content a {
@@ -485,7 +489,7 @@ main table {
   width: 100%;
   border-collapse: collapse;
   margin: 18px 0;
-  background: #fff;
+  background: var(--card);
 }
 
 .content th,
@@ -508,7 +512,7 @@ main td {
 .framework-item {
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.05);
   padding: 16px;
 }
 
