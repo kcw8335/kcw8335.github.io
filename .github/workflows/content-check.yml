@@ -1,0 +1,17 @@
+name: Content check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  copyright-safe-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check tracked content
+        shell: pwsh
+        run: ./scripts/check-content.ps1
