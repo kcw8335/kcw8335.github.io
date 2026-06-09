@@ -1,0 +1,13 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/
+
+# Keep downloaded papers local unless you have redistribution rights.
+*.pdf
+*.docx
+*.pptx
+*.xlsx
+

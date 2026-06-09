@@ -1,0 +1,19 @@
+title: Coin Study
+description: Cryptocurrency investment papers, factor notes, and research reviews.
+lang: ko-KR
+timezone: Asia/Seoul
+markdown: kramdown
+permalink: pretty
+
+defaults:
+  - scope:
+      path: "papers"
+    values:
+      layout: paper
+      type: paper
+
+exclude:
+  - README.md
+  - templates/
+  - ssrn-3226952.pdf
+

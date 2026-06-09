@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article class="paper-detail">
+  <a class="back-link" href="{{ '/' | relative_url }}">← 리뷰 목록</a>
+
+  <header class="paper-head">
+    <p class="paper-meta">
+      {{ page.year }}
+      {% if page.venue %}<span>{{ page.venue }}</span>{% endif %}
+      {% if page.status %}<span>{{ page.status }}</span>{% endif %}
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.authors %}<p class="authors">{{ page.authors }}</p>{% endif %}
+
+    {% if page.tags %}
+      <div class="tag-row">
+        {% for tag in page.tags %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if page.links %}
+      <div class="link-row">
+        {% for link in page.links %}
+          <a href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  {% if page.thesis %}
+    <section class="takeaway">
+      <h2>한 줄 결론</h2>
+      <p>{{ page.thesis }}</p>
+    </section>
+  {% endif %}
+
+  <div class="content">
+    {{ content }}
+  </div>
+</article>
+
