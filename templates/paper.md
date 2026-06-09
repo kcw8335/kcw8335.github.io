@@ -4,6 +4,12 @@ authors: "저자"
 year: 2026
 venue: "저널/워킹페이퍼"
 status: "읽는 중"
+reading_status: "초안"
+priority: "medium"
+reviewed_at: 2026-06-09
+updated_at: 2026-06-09
+source_type: "paper"
+copyright_risk: "low"
 permalink: /papers/slug/
 tags:
   - crypto

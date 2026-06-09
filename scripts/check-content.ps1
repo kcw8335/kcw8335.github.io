@@ -33,6 +33,7 @@ if ($blockedFiles.Count -gt 0) {
 
 $markdownFiles = $trackedFiles | Where-Object { $_ -match "\.md$" }
 $longQuotes = @()
+$paperIssues = @()
 
 foreach ($file in $markdownFiles) {
   $lines = Get-Content -LiteralPath $file
@@ -69,6 +70,36 @@ foreach ($file in $markdownFiles) {
 if ($longQuotes.Count -gt 0) {
   Write-Host "Long block quotes found. Prefer short quotes plus your own summary:" -ForegroundColor Red
   $longQuotes | ForEach-Object { Write-Host " - $_" -ForegroundColor Red }
+  exit 1
+}
+
+$paperFiles = $trackedFiles | Where-Object { $_ -like "papers/*.md" }
+$requiredFields = @(
+  "title",
+  "authors",
+  "year",
+  "permalink",
+  "tags",
+  "thesis",
+  "links",
+  "reading_status",
+  "updated_at",
+  "copyright_risk"
+)
+
+foreach ($file in $paperFiles) {
+  $content = Get-Content -Raw -LiteralPath $file
+
+  foreach ($field in $requiredFields) {
+    if ($content -notmatch "(?m)^$field\s*:") {
+      $paperIssues += "${file}: missing front matter field '$field'"
+    }
+  }
+}
+
+if ($paperIssues.Count -gt 0) {
+  Write-Host "Paper metadata issues found:" -ForegroundColor Red
+  $paperIssues | ForEach-Object { Write-Host " - $_" -ForegroundColor Red }
   exit 1
 }
 

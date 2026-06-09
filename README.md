@@ -18,10 +18,20 @@
 
 ## 새 논문 추가
 
-1. `templates/paper.md`를 복사해서 `papers/논문-slug.md`로 만듭니다.
-2. 상단 front matter의 `title`, `authors`, `year`, `tags`, `links`를 채웁니다.
-3. 본문에 리뷰를 작성합니다.
-4. PDF 원문은 저작권 문제가 있을 수 있으니 저장소에 올리지 말고 DOI, SSRN, NBER, arXiv 링크를 권장합니다.
+스크립트로 초안을 만드는 방식을 권장합니다.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/new-paper.ps1 `
+  -Title "Common Risk Factors in Cryptocurrency" `
+  -Authors "Yukun Liu, Aleh Tsyvinski, Xi Wu" `
+  -Year 2022 `
+  -Venue "Journal of Finance" `
+  -Url "https://example.com"
+```
+
+수동으로 추가할 때는 `templates/paper.md`를 복사해서 `papers/논문-slug.md`로 만들고, 상단 front matter의 `title`, `authors`, `year`, `tags`, `links`, `updated_at`을 채웁니다.
+
+PDF 원문은 저작권 문제가 있을 수 있으니 저장소에 올리지 말고 DOI, SSRN, NBER, arXiv 링크를 권장합니다.
 
 ## 저작권 안전 규칙
 

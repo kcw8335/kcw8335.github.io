@@ -4,6 +4,12 @@ authors: "Yukun Liu, Aleh Tsyvinski"
 year: 2021
 venue: "Review of Financial Studies"
 status: "Foundational"
+reading_status: "리뷰 완료"
+priority: "core"
+reviewed_at: 2026-06-08
+updated_at: 2026-06-09
+source_type: "paper"
+copyright_risk: "low"
 permalink: /papers/risks-and-returns-of-cryptocurrency/
 tags:
   - asset-pricing
