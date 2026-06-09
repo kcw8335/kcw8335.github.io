@@ -6,33 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ page.description | default: site.description }}">
-    <link rel="stylesheet" href="{{ '/assets/css/font_sans_serif.css' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/style-no-dark-mode.css' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/publications-no-dark-mode.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
-        <p class="site-kicker">Crypto investment research notes</p>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+          <span class="brand-mark">CS</span>
+          <span>{{ site.title }}</span>
+        </a>
         <nav class="site-nav" aria-label="Primary navigation">
-          <a href="{{ '/' | relative_url }}">리뷰</a>
-          <a href="{{ '/methodology/' | relative_url }}">분석 틀</a>
-          <a href="{{ '/reading-list/' | relative_url }}">읽을 목록</a>
-          <a href="{{ '/workflow/' | relative_url }}">운영 흐름</a>
-          <a href="{{ '/copyright-policy/' | relative_url }}">저작권 원칙</a>
+          <a href="{{ '/' | relative_url }}">Reviews</a>
+          <a href="{{ '/methodology/' | relative_url }}">Method</a>
+          <a href="{{ '/reading-list/' | relative_url }}">Queue</a>
+          <a href="{{ '/workflow/' | relative_url }}">Workflow</a>
+          <a href="{{ '/copyright-policy/' | relative_url }}">Copyright</a>
         </nav>
       </header>
-      <section>
+      <main>
         {{ content }}
+      </main>
+      <footer class="site-footer">
         <p class="site-footer">
-          Research notes, not financial advice. Powered by Jekyll and
-          <a href="https://github.com/yaoyao-liu/minimal-light" target="_blank" rel="noopener">Minimal Light</a>.
+          Research notes, not financial advice. Card layout inspired by
+          <a href="https://claude.com/blog" target="_blank" rel="noopener">Claude Blog</a>.
         </p>
-      </section>
-      <footer></footer>
+      </footer>
     </div>
-    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
   </body>
 </html>
