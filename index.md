@@ -4,7 +4,7 @@ title: 논문 리뷰
 description: 코인 투자 논문과 팩터 리서치를 정리하는 개인 연구 노트입니다.
 ---
 
-{% assign papers = site.pages | where: "type", "paper" | sort: "updated_at" | reverse %}
+{% assign papers = site.pages | where: "type", "paper" | sort: "rank" %}
 {% assign paper_count = papers | size %}
 
 <section class="blog-hero">
@@ -22,9 +22,11 @@ description: 코인 투자 논문과 팩터 리서치를 정리하는 개인 연
     <button class="tab-pill is-active" type="button" data-filter="all">All</button>
     <button class="tab-pill" type="button" data-filter="asset-pricing">Asset pricing</button>
     <button class="tab-pill" type="button" data-filter="momentum">Momentum</button>
-    <button class="tab-pill" type="button" data-filter="investor-attention">Attention</button>
-    <button class="tab-pill" type="button" data-filter="BTC">BTC</button>
-    <button class="tab-pill" type="button" data-filter="ETH">ETH</button>
+    <button class="tab-pill" type="button" data-filter="factor">Factor</button>
+    <button class="tab-pill" type="button" data-filter="machine-learning">ML</button>
+    <button class="tab-pill" type="button" data-filter="on-chain">On-chain</button>
+    <button class="tab-pill" type="button" data-filter="risk">Risk</button>
+    <button class="tab-pill" type="button" data-filter="arbitrage">Arbitrage</button>
   </div>
   <label class="search-control">
     <span>Search</span>
