@@ -77,8 +77,8 @@
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
     <div class="site-ambient" aria-hidden="true"></div>
 
-    <div class="site-shell">
-      <header class="site-header">
+    <div class="site-shell" data-page-shell>
+      <header class="site-header" data-site-header>
         <a class="brand" href="{{ '/' | relative_url }}?v={{ asset_version | escape }}" aria-label="{{ site.title }} 홈">
           <span class="brand-mark" aria-hidden="true">CS</span>
           <span class="brand-copy">
@@ -90,7 +90,8 @@
         <nav class="site-nav" aria-label="주요 메뉴">
           <a
             href="{{ '/' | relative_url }}?v={{ asset_version | escape }}"
-            {% if page.url == '/' or page.type == 'paper' %}class="is-active" aria-current="page"{% endif %}
+            {% if page.url == '/' or page.type == 'paper' %}class="is-active"{% endif %}
+            {% if page.url == '/' %}aria-current="page"{% endif %}
           >리서치</a>
           <a
             href="{{ '/methodology/' | relative_url }}?v={{ asset_version | escape }}"
@@ -111,9 +112,14 @@
         </nav>
       </header>
 
-      <main id="main-content" class="site-main">
+      <main id="main-content" class="site-main" data-page-main tabindex="-1">
         {{ content }}
       </main>
+
+      <button class="back-to-top" type="button" data-back-to-top aria-label="페이지 맨 위로 이동" hidden>
+        <span aria-hidden="true">↑</span>
+        <span>Top</span>
+      </button>
 
       <footer class="site-footer">
         <div class="footer-brand">

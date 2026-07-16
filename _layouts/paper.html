@@ -46,8 +46,13 @@ layout: default
     {% endif %}
   </header>
 
+  <nav class="paper-toc paper-toc--mobile" data-paper-toc aria-labelledby="paper-toc-mobile-title" hidden>
+    <h2 id="paper-toc-mobile-title">On this page</h2>
+    <ol data-toc-list></ol>
+  </nav>
+
   <div class="paper-layout">
-    <aside class="paper-rail">
+    <div class="paper-rail">
       <section class="paper-facts" aria-labelledby="paper-facts-title">
         <h2 id="paper-facts-title">Paper brief</h2>
         <dl>
@@ -90,16 +95,28 @@ layout: default
         </section>
       {% endif %}
 
-      <aside class="research-note">
+      <div class="paper-utility">
+        <button type="button" data-copy-link>
+          <span data-copy-label aria-live="polite">링크 복사</span>
+          <span aria-hidden="true">⧉</span>
+        </button>
+      </div>
+
+      <aside class="research-note" aria-label="리뷰 원칙">
         <strong>리뷰 원칙</strong>
         <p>논문 결론과 투자 해석을 구분하고, 거래비용과 실행 제약까지 함께 봅니다.</p>
         <a href="{{ '/methodology/' | relative_url }}">분석 기준 보기 →</a>
       </aside>
-    </aside>
+    </div>
 
     <div class="content paper-content">
       {{ content }}
     </div>
+
+    <nav class="paper-toc paper-toc--desktop" data-paper-toc aria-labelledby="paper-toc-desktop-title" hidden>
+      <h2 id="paper-toc-desktop-title">On this page</h2>
+      <ol data-toc-list></ol>
+    </nav>
   </div>
 
   <footer class="paper-end">
