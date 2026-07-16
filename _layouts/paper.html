@@ -1,44 +1,115 @@
 ---
 layout: default
 ---
-<article class="paper-detail">
-  <a class="back-link" href="{{ '/' | relative_url }}">← 리뷰 목록</a>
+<div class="reading-progress" aria-hidden="true">
+  <span data-reading-progress></span>
+</div>
 
-  <header class="paper-head">
-    <p class="paper-meta">
-      {{ page.year }}
-      {% if page.venue %}<span>{{ page.venue }}</span>{% endif %}
-      {% if page.status %}<span>{{ page.status }}</span>{% endif %}
-      {% if page.updated_at %}<span>updated {{ page.updated_at }}</span>{% endif %}
-    </p>
-    <h1>{{ page.title }}</h1>
-    {% if page.authors %}<p class="authors">{{ page.authors }}</p>{% endif %}
+<article class="paper-detail" data-reading-article>
+  <nav class="breadcrumbs" aria-label="현재 위치">
+    <a href="{{ '/' | relative_url }}">리서치</a>
+    <span aria-hidden="true">/</span>
+    <span>논문 리뷰</span>
+  </nav>
 
-    {% if page.tags %}
-      <div class="tag-row">
-        {% for tag in page.tags %}
-          <span class="tag">{{ tag }}</span>
-        {% endfor %}
+  <header class="paper-hero">
+    <div class="paper-hero__main">
+      <div class="paper-kicker">
+        {% if page.priority == 'core' %}
+          <span class="status-chip status-chip--core">핵심 논문</span>
+        {% elsif page.priority == 'high' %}
+          <span class="status-chip">우선 읽기</span>
+        {% else %}
+          <span class="status-chip">리서치 노트</span>
+        {% endif %}
+        <span>{{ page.year }}</span>
+        {% if page.reading_status %}<span>{{ page.reading_status }}</span>{% endif %}
       </div>
-    {% endif %}
 
-    {% if page.links %}
-      <div class="link-row">
-        {% for link in page.links %}
-          <a href="{{ link.url }}" target="_blank" rel="noreferrer">{{ link.label }}</a>
-        {% endfor %}
-      </div>
+      <h1>{{ page.title }}</h1>
+      {% if page.authors %}<p class="paper-authors">{{ page.authors }}</p>{% endif %}
+
+      {% if page.tags %}
+        <div class="tag-row" aria-label="논문 태그">
+          {% for tag in page.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if page.thesis %}
+      <aside class="paper-thesis" aria-label="한 줄 결론">
+        <span class="section-label">One-line thesis</span>
+        <p>{{ page.thesis }}</p>
+      </aside>
     {% endif %}
   </header>
 
-  {% if page.thesis %}
-    <section class="takeaway">
-      <h2>한 줄 결론</h2>
-      <p>{{ page.thesis }}</p>
-    </section>
-  {% endif %}
+  <div class="paper-layout">
+    <aside class="paper-rail">
+      <section class="paper-facts" aria-labelledby="paper-facts-title">
+        <h2 id="paper-facts-title">Paper brief</h2>
+        <dl>
+          <div>
+            <dt>출판연도</dt>
+            <dd>{{ page.year }}</dd>
+          </div>
+          {% if page.venue %}
+            <div>
+              <dt>저널·출처</dt>
+              <dd>{{ page.venue }}</dd>
+            </div>
+          {% endif %}
+          {% if page.status %}
+            <div>
+              <dt>연구 성격</dt>
+              <dd>{{ page.status }}</dd>
+            </div>
+          {% endif %}
+          {% if page.updated_at %}
+            <div>
+              <dt>마지막 수정</dt>
+              <dd><time datetime="{{ page.updated_at | date: '%Y-%m-%d' }}">{{ page.updated_at | date: "%Y-%m-%d" }}</time></dd>
+            </div>
+          {% endif %}
+        </dl>
+      </section>
 
-  <div class="content">
-    {{ content }}
+      {% if page.links %}
+        <section class="paper-sources" aria-labelledby="paper-sources-title">
+          <h2 id="paper-sources-title">원문 확인</h2>
+          <div class="source-links">
+            {% for link in page.links %}
+              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+                <span>{{ link.label }}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+
+      <aside class="research-note">
+        <strong>리뷰 원칙</strong>
+        <p>논문 결론과 투자 해석을 구분하고, 거래비용과 실행 제약까지 함께 봅니다.</p>
+        <a href="{{ '/methodology/' | relative_url }}">분석 기준 보기 →</a>
+      </aside>
+    </aside>
+
+    <div class="content paper-content">
+      {{ content }}
+    </div>
   </div>
+
+  <footer class="paper-end">
+    <div>
+      <span class="section-label">Continue exploring</span>
+      <h2>다른 연구와 연결해서 읽어보세요.</h2>
+    </div>
+    <div class="paper-end__actions">
+      <a class="button button--primary" href="{{ '/' | relative_url }}#library">전체 리뷰 보기</a>
+      <a class="button" href="{{ '/reading-list/' | relative_url }}">추천 읽기 순서</a>
+    </div>
+  </footer>
 </article>

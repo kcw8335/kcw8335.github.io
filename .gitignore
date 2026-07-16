@@ -10,4 +10,7 @@ vendor/
 *.docx
 *.pptx
 *.xlsx
-
+*.exe
+*.msi
+*.dll
+*.winmd

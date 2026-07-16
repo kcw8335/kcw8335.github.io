@@ -1,7 +1,10 @@
 title: Coin Study
-description: Cryptocurrency investment papers, factor notes, and research reviews.
+description: 암호화폐 수익률의 원인과 실제 투자에 남는 신호를 학술 논문으로 검토하는 한국어 리서치 라이브러리입니다.
 lang: ko-KR
 timezone: Asia/Seoul
+url: https://kcw8335.github.io
+baseurl: ""
+author: Coin Study
 markdown: kramdown
 permalink: pretty
 
@@ -14,6 +17,12 @@ defaults:
 
 exclude:
   - README.md
+  - AGENTS.md
+  - .github/
+  - scripts/
   - templates/
+  - assets/css/font_sans_serif.css
+  - assets/css/publications-no-dark-mode.css
+  - assets/css/style-no-dark-mode.scss
+  - assets/js/scale.fix.js
   - ssrn-3226952.pdf
-

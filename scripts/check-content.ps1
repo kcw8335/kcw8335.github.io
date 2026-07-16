@@ -12,7 +12,11 @@ $blockedExtensions = @(
   ".xlsx",
   ".zip",
   ".rar",
-  ".7z"
+  ".7z",
+  ".exe",
+  ".msi",
+  ".dll",
+  ".winmd"
 )
 
 $trackedFiles = git ls-files
@@ -74,10 +78,13 @@ if ($longQuotes.Count -gt 0) {
 }
 
 $paperFiles = $trackedFiles | Where-Object { $_ -like "papers/*.md" }
+$seenRanks = @{}
+$seenPermalinks = @{}
 $requiredFields = @(
   "title",
   "authors",
   "year",
+  "rank",
   "permalink",
   "tags",
   "thesis",
@@ -95,6 +102,41 @@ foreach ($file in $paperFiles) {
       $paperIssues += "${file}: missing front matter field '$field'"
     }
   }
+
+  $rankMatch = [regex]::Match($content, "(?m)^rank\s*:\s*(\d+)\s*$")
+  if (-not $rankMatch.Success) {
+    $paperIssues += "${file}: rank must be a positive integer"
+  }
+  else {
+    $rank = [int]$rankMatch.Groups[1].Value
+    if ($rank -lt 1) {
+      $paperIssues += "${file}: rank must be greater than zero"
+    }
+    elseif ($seenRanks.ContainsKey($rank)) {
+      $paperIssues += "${file}: duplicate rank '$rank' also used by '$($seenRanks[$rank])'"
+    }
+    else {
+      $seenRanks[$rank] = $file
+    }
+  }
+
+  $permalinkMatch = [regex]::Match($content, "(?m)^permalink\s*:\s*(/\S+/)\s*$")
+  if (-not $permalinkMatch.Success) {
+    $paperIssues += "${file}: permalink must start and end with '/'"
+  }
+  else {
+    $permalink = $permalinkMatch.Groups[1].Value
+    if ($seenPermalinks.ContainsKey($permalink)) {
+      $paperIssues += "${file}: duplicate permalink '$permalink' also used by '$($seenPermalinks[$permalink])'"
+    }
+    else {
+      $seenPermalinks[$permalink] = $file
+    }
+  }
+
+  if ($content -notmatch "(?m)^updated_at\s*:\s*\d{4}-\d{2}-\d{2}\s*$") {
+    $paperIssues += "${file}: updated_at must use YYYY-MM-DD"
+  }
 }
 
 if ($paperIssues.Count -gt 0) {
@@ -103,4 +145,4 @@ if ($paperIssues.Count -gt 0) {
   exit 1
 }
 
-Write-Host "Content check passed: no blocked files or long block quotes are tracked." -ForegroundColor Green
+Write-Host "Content check passed: tracked files, quotes, paper metadata, ranks, and permalinks are valid." -ForegroundColor Green

@@ -5,9 +5,10 @@ param(
   [string]$Authors = "",
   [int]$Year = (Get-Date).Year,
   [string]$Venue = "Working paper",
-  [string]$Status = "Reading",
-  [string]$ReadingStatus = "Draft",
+  [string]$Status = "",
+  [string]$ReadingStatus = "",
   [string]$Priority = "medium",
+  [int]$Rank = 999,
   [string]$Url = "https://example.com",
   [string]$Label = "Official link",
   [string[]]$Tags = @("crypto", "factor")
@@ -29,9 +30,31 @@ function ConvertTo-Slug {
   return $slug
 }
 
+function Replace-Line {
+  param(
+    [string]$Text,
+    [string]$Pattern,
+    [string]$Replacement
+  )
+
+  return [regex]::Replace(
+    $Text,
+    $Pattern,
+    [System.Text.RegularExpressions.MatchEvaluator]{
+      param($Match)
+      return $Replacement
+    }
+  )
+}
+
 $repoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")
 $papersDir = Join-Path $repoRoot "papers"
+$templatePath = Join-Path $repoRoot "templates\paper.md"
 New-Item -ItemType Directory -Force -Path $papersDir | Out-Null
+
+if (-not (Test-Path -LiteralPath $templatePath -PathType Leaf)) {
+  throw "Paper template not found: $templatePath"
+}
 
 $slug = ConvertTo-Slug -Value $Title
 $targetPath = Join-Path $papersDir "$slug.md"
@@ -41,7 +64,8 @@ if (Test-Path -LiteralPath $targetPath) {
 }
 
 $today = Get-Date -Format "yyyy-MM-dd"
-$tagLines = ($Tags | ForEach-Object { "  - $_" }) -join [Environment]::NewLine
+$newLine = [Environment]::NewLine
+$tagLines = ($Tags | ForEach-Object { "  - $_" }) -join $newLine
 $safeTitle = $Title.Replace('"', '\"')
 $safeAuthors = $Authors.Replace('"', '\"')
 $safeVenue = $Venue.Replace('"', '\"')
@@ -50,48 +74,37 @@ $safeReadingStatus = $ReadingStatus.Replace('"', '\"')
 $safePriority = $Priority.Replace('"', '\"')
 $safeLabel = $Label.Replace('"', '\"')
 
-$content = @"
----
-title: "$safeTitle"
-authors: "$safeAuthors"
-year: $Year
-venue: "$safeVenue"
-status: "$safeStatus"
-reading_status: "$safeReadingStatus"
-priority: "$safePriority"
-reviewed_at: $today
-updated_at: $today
-source_type: "paper"
-copyright_risk: "low"
-permalink: /papers/$slug/
-tags:
-$tagLines
-thesis: "Write the one-line thesis here."
-links:
-  - label: $safeLabel
-    url: $Url
----
+$content = [System.IO.File]::ReadAllText(
+  $templatePath,
+  [System.Text.Encoding]::UTF8
+)
+$content = $content.Replace("https://example.com", $Url)
 
-> Copyright note: Do not upload the source PDF, abstract in full, tables, or figures. Link to the official source and write your own summary.
-
-## Why It Matters
-
-## Data
-
-## Main Findings
-
-## Source Checks
-
-- Official link: $Url
-- Data needed for replication:
-- Direct quote needed: no
-
-## Investment Interpretation
-
-## Limitations
-
-## My Conclusion
-"@
+$content = Replace-Line $content "(?m)^title:.*$" ('title: "' + $safeTitle + '"')
+$content = Replace-Line $content "(?m)^authors:.*$" ('authors: "' + $safeAuthors + '"')
+$content = Replace-Line $content "(?m)^year:.*$" "year: $Year"
+$content = Replace-Line $content "(?m)^venue:.*$" ('venue: "' + $safeVenue + '"')
+if (-not [string]::IsNullOrWhiteSpace($safeStatus)) {
+  $content = Replace-Line $content "(?m)^status:.*$" ('status: "' + $safeStatus + '"')
+}
+if (-not [string]::IsNullOrWhiteSpace($safeReadingStatus)) {
+  $content = Replace-Line $content "(?m)^reading_status:.*$" ('reading_status: "' + $safeReadingStatus + '"')
+}
+$content = Replace-Line $content "(?m)^priority:.*$" ('priority: "' + $safePriority + '"')
+$content = Replace-Line $content "(?m)^rank:.*$" "rank: $Rank"
+$content = Replace-Line $content "(?m)^reviewed_at:.*$" "reviewed_at: $today"
+$content = Replace-Line $content "(?m)^updated_at:.*$" "updated_at: $today"
+$content = Replace-Line $content "(?m)^permalink:.*$" "permalink: /papers/$slug/"
+$content = Replace-Line $content "(?m)^  - label:.*$" "  - label: $safeLabel"
+$content = Replace-Line $content "(?m)^    url:.*$" "    url: $Url"
+$content = [regex]::Replace(
+  $content,
+  "(?ms)^tags:\r?\n.*?(?=^thesis:)",
+  [System.Text.RegularExpressions.MatchEvaluator]{
+    param($Match)
+    return "tags:$newLine$tagLines$newLine"
+  }
+)
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 [System.IO.File]::WriteAllText($targetPath, $content, $utf8NoBom)

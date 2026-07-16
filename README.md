@@ -17,13 +17,9 @@
 └── reading-list.md
 ```
 
-## 디자인 테마
+## 디자인
 
-현재 디자인은 공개 Jekyll 테마인 Minimal Light를 다운로드해 적용했습니다.
-
-- Theme: https://github.com/yaoyao-liu/minimal-light
-- License: CC0 1.0 Universal
-- Notice: `THIRD_PARTY_NOTICES.md`
+현재 사이트는 짙은 네이비 배경, 시안·라임 강조색, 데이터 패널과 편집형 타이포그래피를 결합한 커스텀 리서치 UI를 사용합니다. 초기 스타일 기반으로 참고한 Minimal Light 관련 고지는 `THIRD_PARTY_NOTICES.md`에 남겨 둡니다.
 
 ## 새 논문 추가
 
@@ -35,6 +31,7 @@ powershell -ExecutionPolicy Bypass -File scripts/new-paper.ps1 `
   -Authors "Yukun Liu, Aleh Tsyvinski, Xi Wu" `
   -Year 2022 `
   -Venue "Journal of Finance" `
+  -Rank 9 `
   -Url "https://example.com"
 ```
 
